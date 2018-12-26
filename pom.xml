@@ -7,17 +7,17 @@
     <groupId>com.reagere</groupId>
     <artifactId>twitter-responses</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <!--<scm>
-        <connection>scm:git:https://github.com/reagere/twitter.urlword.topcounting.git</connection>
-        <url>https://github.com/reagere/twitter.urlword.topcounting.git</url>
+    <scm>
+        <connection>scm:git:https://github.com/reagere/tweeter-responses.git</connection>
+        <url>https://github.com/reagere/tweeter-responses.git</url>
         <tag>HEAD</tag>
-    </scm>-->
+    </scm>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <app.main.class>com.reagere.tweeter.responses.TestSelenium</app.main.class>
+        <app.main.class>com.reagere.tweeter.responses.Extract</app.main.class>
     </properties>
 
     <dependencies>

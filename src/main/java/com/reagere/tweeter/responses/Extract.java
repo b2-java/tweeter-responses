@@ -16,7 +16,7 @@ import java.util.List;
 public class Extract {
 
     public static void main(String[] args) throws Exception {
-        System.setProperty("webdriver.chrome.driver", "c:/bin/chromedriver.exe");
+        //System.setProperty("webdriver.chrome.driver", "c:/bin/chromedriver.exe");
 
         WebDriver driver = new ChromeDriver();
         // "https://mobile.twitter.com/EmmanuelMacron/status/1068943621947367424"
