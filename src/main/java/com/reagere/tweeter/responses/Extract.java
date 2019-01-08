@@ -16,11 +16,11 @@ import java.util.List;
 public class Extract {
 
     public static void main(String[] args) throws Exception {
-        System.setProperty("webdriver.chrome.driver", "c:/bin/chromedriver.exe");
+        //System.setProperty("webdriver.chrome.driver", "c:/bin/chromedriver.exe");
 
         WebDriver driver = new ChromeDriver();
-        driver.get("https://mobile.twitter.com/EmmanuelMacron/status/1068943621947367424");
-        //driver.get(args[0]);
+        //driver.get("https://mobile.twitter.com/EmmanuelMacron/status/1068943621947367424");
+        driver.get(args[0]);
 
         JavascriptExecutor jse = (JavascriptExecutor)driver;
         Thread.sleep(1000);
