@@ -16,11 +16,11 @@ import java.util.List;
 public class Extract {
 
     public static void main(String[] args) throws Exception {
-        //System.setProperty("webdriver.chrome.driver", "c:/bin/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "c:/bin/chromedriver.exe");
 
         WebDriver driver = new ChromeDriver();
-        // "https://mobile.twitter.com/EmmanuelMacron/status/1068943621947367424"
-        driver.get(args[0]);
+        driver.get("https://mobile.twitter.com/EmmanuelMacron/status/1068943621947367424");
+        //driver.get(args[0]);
 
         JavascriptExecutor jse = (JavascriptExecutor)driver;
         Thread.sleep(1000);
@@ -31,13 +31,39 @@ public class Extract {
         List<String> merge = new ArrayList<>();
         do {
             last = offset;
-            Thread.sleep(1000);
+            Thread.sleep(500);
 
             if (count == 0) {
                 WebElement main = driver.findElement(By.tagName("main"));
                 WebElement section = main.findElement(By.tagName("section"));
-                String[] split = section.getText().split("\\.");
 
+                // find all "* more repl*" and click on it
+                boolean hasClicked;
+                do {
+                    hasClicked = false;
+                    Thread.sleep(500);
+                    try {
+                        List<WebElement> mores = section.findElements(By.xpath("//div[@dir='auto']"));
+                        for (WebElement more : mores) {
+                            if (more.isDisplayed()) {
+                                String content = more.getText();
+                                if (content.contains("more repl") || content.contains(" réponses de plus") || content.contains(" réponse de plus")) {
+                                    try {
+                                        more.click();
+                                        hasClicked = true;
+                                    } catch (Exception e) {
+                                        System.out.println(content);
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } while (hasClicked);
+
+                String[] split = section.getText().split("\\."); // export the text
                 int positionValid = 0;
                 for (int pos = 0; pos < Math.min(split.length, merge.size()); pos++) {
                     boolean found = false;
@@ -66,7 +92,7 @@ public class Extract {
                 }
             }
 
-            jse.executeScript("window.scrollBy(0, 250)", "");
+            jse.executeScript("setTimeout(function() {window.scrollTo(0, "+last+"+200);},1)", "");
             offset = (Long) jse.executeScript("return window.main.scrollHeight", "");
 
             if (offset == last) {
