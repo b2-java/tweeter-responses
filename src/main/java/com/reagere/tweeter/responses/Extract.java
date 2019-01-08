@@ -29,11 +29,50 @@ public class Extract {
         int count = 0;
 
         List<String> merge = new ArrayList<>();
+        boolean once = true;
         do {
             last = offset;
             Thread.sleep(500);
-
+            if (once) {
+                List<WebElement> buttons = driver.findElements(By.xpath("//div[@role='button']"));
+                for (WebElement b : buttons) {
+                    if (b.isDisplayed()) {
+                        String text = b.getText().trim();
+                        if (text.equals("Fermer") || text.equals("Close"))
+                        try {
+                            b.click();
+                            once = false;
+                            break;
+                        } catch (Exception e) {
+                            //
+                        }
+                    }
+                }
+            }
             if (count == 0) {
+                List<WebElement> dirs = driver.findElements(By.xpath("//div[@aria-label='Back']"));
+                for (WebElement dir : dirs) {
+                    if (dir.isDisplayed()) {
+                        try {
+                            dir.click();
+                            break;
+                        } catch (Exception e) {
+                            //
+                        }
+                    }
+                }
+                dirs = driver.findElements(By.xpath("//div[@aria-label='Retour']"));
+                for (WebElement dir : dirs) {
+                    if (dir.isDisplayed()) {
+                        try {
+                            dir.click();
+                            break;
+                        } catch (Exception e) {
+                            //
+                        }
+                    }
+                }
+
                 WebElement main = driver.findElement(By.tagName("main"));
                 WebElement section = main.findElement(By.tagName("section"));
 
